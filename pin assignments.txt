@@ -1,0 +1,13 @@
+device:				pin:
+——————————————————————————————————
+
+steering servo			3
+range-finding servo		4
+
+i2c SCL				A5
+12c SDA				A4
+
+range finder			A0
+
+motor driver forward - PWM	10
+motor driver backward - PWM	9
