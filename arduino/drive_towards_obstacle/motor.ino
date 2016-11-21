@@ -1,5 +1,5 @@
-#define pos_dir 10
-#define neg_dir 9
+#define pos_dir 11
+#define neg_dir 3
 
 void runMotor (int speed) {
   if (speed >= 0 && speed < 256) {
@@ -12,6 +12,6 @@ void runMotor (int speed) {
     // first set the opposite direction to 0
     analogWrite(pos_dir, 0);
     // now set the desired direction
-    analogWrite(neg_dir, speed);
+    analogWrite(neg_dir, - speed);
   }
 }
