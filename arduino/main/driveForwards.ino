@@ -6,5 +6,4 @@ void driveForwards() {
   }
   runMotor(0);
   scanForRoute();
-  }
 }
