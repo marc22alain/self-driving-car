@@ -8,7 +8,7 @@
 */
 
 #include <Servo.h>
-#define steering_servo_pin 3
+#define steering_servo_pin 2
 #define ranging_servo_pin 4
 
 Servo steering_servo;  // create servo object to control a servo
@@ -37,24 +37,24 @@ void setup() {
 }
 
 void loop() {
-  for (pos = 20; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    steering_servo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-  for (pos = 180; pos >= 20; pos -= 1) { // goes from 180 degrees to 0 degrees
-    steering_servo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-  for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    ranging_servo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-  for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-    ranging_servo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
+//  for (pos = 20; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+//    // in steps of 1 degree
+//    steering_servo.write(pos);              // tell servo to go to position in variable 'pos'
+//    delay(15);                       // waits 15ms for the servo to reach the position
+//  }
+//  for (pos = 180; pos >= 20; pos -= 1) { // goes from 180 degrees to 0 degrees
+//    steering_servo.write(pos);              // tell servo to go to position in variable 'pos'
+//    delay(15);                       // waits 15ms for the servo to reach the position
+//  }
+//  for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+//    // in steps of 1 degree
+//    ranging_servo.write(pos);              // tell servo to go to position in variable 'pos'
+//    delay(15);                       // waits 15ms for the servo to reach the position
+//  }
+//  for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+//    ranging_servo.write(pos);              // tell servo to go to position in variable 'pos'
+//    delay(15);                       // waits 15ms for the servo to reach the position
+//  }
 
 }
 

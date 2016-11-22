@@ -18,7 +18,7 @@ void setup() {
   steering_servo.attach(steering_servo_pin);
   centerWheels();
   
-  delay(10000);
+  delay(5000);
   digitalWrite(13, LOW);
 }
 
@@ -33,6 +33,6 @@ void loop() {
 
   // power backwards for 5 seconds
   runMotor(- speed);
-  delay(3000);
+  delay(4000);
 
 }
