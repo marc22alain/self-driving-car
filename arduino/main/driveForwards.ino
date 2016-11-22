@@ -1,9 +1,9 @@
 // STATE: driving forwards
 void driveForwards() {
-  runMotor(10);
+  runMotor(speed);
   while (!checkObstacle()) {
     delay(100);
   }
-  runMotor(0);
+  runMotor(STOP);
   scanForRoute();
 }
