@@ -18,7 +18,7 @@ void centerWheels () {
  * This function is used in the turn state to make a turn the vehicle towards
  * the right heading
  */
-void turnRight(){
+void turnWheelsRight(){
   steer_servo_pos = 20;
   steering_servo.write(steer_servo_pos);
 }

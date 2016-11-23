@@ -18,7 +18,7 @@ int turnVehicle(int headingChange) {
     target_heading += 360;
   }
 
-  turnRight(); //turn the steering servo to the right
+  turnWheelsRight(); //turn the steering servo to the right
 
   while(abs(cur_heading - target_heading) >= 10){
 
