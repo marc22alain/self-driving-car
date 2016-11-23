@@ -1,31 +1,45 @@
 // STATE for a turn
 
-/*
-This fucntion administers steering the vehicle when making a turn
+/* This function administers steering the vehicle when making a turn
+ *  Requires: - heading values relative to the car's orientation: 90 is dead ahead
+ *            - right-hand turn: 0 <= target_heading < 90
+ *            - left-hand turn: 90 < target_heading <= 180
 */
-int turnVehicle(int target_heading) {
+int turnVehicle(int headingChange) {
   
   int cur_heading = getHeading(); //get current heading of vehicle 
-  turnRight(); //turn the steering servo to the target heading
+  int target_heading = cur_heading + (90 - headingChange);
 
-  while(!checkTurn(cur_heading, target_heading)){
+  // adjust for out-of-quadrant values
+  if (target_heading >= 360) {
+    target_heading -= 360;
+  }
+  else if (target_heading < 0) {
+    target_heading += 360;
+  }
 
-    runMotor(turnSpeed); //drive forward for 0.25 seconds
-    delay(250);
-    runMotor(STOP);
+  turnRight(); //turn the steering servo to the right
+
+  while(abs(cur_heading - target_heading) >= 10){
+
+    runMotor(turnSpeed);
+    delay(67);          // since the default refresh rate is 15Hz, and we haven't changed it
     cur_heading = getHeading();
   }
+  runMotor(STOP);
   //once our current heading matches the target heading, we center the steering
   centerWheels();
 
+  delay(180); // because the servo rotation rate is 60 degrees/.12 seconds @ 4.8V
+
+  // If the car turn ends outside of the tolerance, then stop it NOW !
+  // This can occur due to momentum carrying the car through the turn
+  // before the wheels have straigthened out.
+  if (abs(cur_heading - target_heading) > 10) {
+    assertionError();
+  }
+
   //drive forward now that the turn is complete
   driveForwards();
-}
-
-boolean checkTurn (int cur_heading, int targ_heading) {
-   if(abs(cur_heading - targ_heading) >= 10){
-     return false;
-   }
-   return true;
 }
 

@@ -24,6 +24,7 @@ Adafruit_HMC5883_Unified mag = Adafruit_HMC5883_Unified(12345);
 int distance_threshold = 40;
 int speed = 150;
 int turnSpeed = 170;
+int rangefinder_servo_pos = 0;
 
 void setup() {
   

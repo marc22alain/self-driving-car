@@ -1,25 +1,25 @@
 // STATE: scanning with range-finder for a clear route
 void scanForRoute() {
-  int bestHeading = -1;
+  int bestHeadingChange = -1;
   int optimum_dis = analogRead(A0);
-  int heading = 0;
 
   do {
     delay(100);
     int sensorValue = analogRead(A0);
     if (sensorValue > optimum_dis && sensorValue >= distance_threshold) {
       optimum_dis = sensorValue;
-      bestHeading =  heading;
+      bestHeadingChange =  rangefinder_servo_pos;
     }
-    heading = turnRangefinder();
-  } while (heading > 0);
+    turnRangefinder();
+  } while (rangefinder_servo_pos > 0);
 
-  centerRangeFinder();
+  // note that this resets rangefinder_servo_pos to rangefinder_servo_default_pos (90 degrees)
+  centerRangeFinder();  
 
   /*After scanning when a target heading is found we make a turn 
   turn*/
-  if (bestHeading > 0) {
-    turnVehicle(bestHeading);
+  if (bestHeadingChange > 0) {
+    turnVehicle(bestHeadingChange);
   }
   
   else{
