@@ -2,15 +2,12 @@
 the current heading of the vehicle*/
 
 int getHeading(){
-  /* Get a new sensor event */ 
-    sensors_event_t event; 
-    //mag is magnetometer object that's defined as a global varible in main.ino
-  mag.getEvent(&event);
-
+  MagnetometerRaw raw = compass.ReadRawAxis();
+  
  /*We can measure the heading with x and y coorediantes when the magnetometer
   is level, then correct for signs of axis*/
-  float heading = atan2(event.magnetic.y, event.magnetic.x);
-
+  float heading = atan2(raw.YAxis + Offset_y, raw.XAxis + Offset_x);
+  
   /* Once you have your heading, you must then add your 'Declination Angle', 
    which is the 'Error' or angle variation between magnetic North and 
    and true north (the direction along a meridian towards the geographic North Pole)*/ 

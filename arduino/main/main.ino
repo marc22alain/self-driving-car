@@ -1,7 +1,8 @@
 #include <Servo.h>
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
-#include <Adafruit_HMC5883_U.h>
+//#include <Adafruit_HMC5883_U.h>
+#include <HMC5883L.h>
 
 #define steering_servo_pin 2
 #define ranging_servo_pin 4
@@ -13,17 +14,21 @@ Servo steering_servo;  // create servo object to control a servo
 // create a servo object to control a the range finder servo
 Servo ranging_servo;  
 
-/* Create a HMC5883 magnetosensor object and asssing
-assign a unique ID to this sensor */
-Adafruit_HMC5883_Unified mag = Adafruit_HMC5883_Unified(12345);
+HMC5883L compass;
+
+int Offset_x  = 154.80; // mG
+int Offset_y  = 266.58; // mG
+int Offset_z  = 343.81; // mG
 
 
 // Define a few GLOBAL VARIABLES
 // we may want an interface to adjust these at the device,
 // to save continually reprogramming the Arduino
-int distance_threshold = 40;
+int distance_threshold = 45;
+int turn_distance_threshold = min(15, distance_threshold / 3);
 int speed = 150;
-int turnSpeed = 170;
+int turnSpeed = 150;
+int rangefinder_servo_pos = 0;
 
 void setup() {
   
@@ -32,12 +37,11 @@ void setup() {
   centerWheels();
   centerRangeFinder();
 
-  /* Initialise the compass */
-  if(!mag.begin())
-  {
-    /* There was a problem detecting the HMC5883 ... check your connections */
-    while(1);
-  }
+  Wire.begin();
+  compass = HMC5883L();
+  compass.SetMeasurementMode(Measurement_Continuous);
+  compass.SetMeasurementRate(Hz75);
+  
   // turn on the setup indicator LED
   // and wait 10 seconds to set up the car
   pinMode(setup_LED_pin, OUTPUT);
