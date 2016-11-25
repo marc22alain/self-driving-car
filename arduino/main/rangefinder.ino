@@ -1,7 +1,7 @@
 
 
 bool checkObstacle() {
-  int sensorValue = analogRead(A0);
+  int sensorValue = multiSample();
   if (sensorValue > distance_threshold) {
 //    Serial.print("Clear: ");
 //    Serial.println(sensorValue);
@@ -14,4 +14,11 @@ bool checkObstacle() {
   }
 }
 
-
+int multiSample () {
+	int total = 0;
+	for (int i = 0; i < 16; i++) {
+		total += analogRead(A0);
+		delay(1);
+	}
+	return (total >> 4);
+}

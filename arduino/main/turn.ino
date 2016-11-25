@@ -33,7 +33,7 @@ int turnVehicle(int headingChange) {
 
   while(abs(cur_heading - target_heading) >= 10){
 
-    if (analogRead(A0) < turn_distance_threshold) {
+    if (multiSample() < turn_distance_threshold) {
       runMotor(STOP);
       brakeFromForwards();
       centerWheels();
