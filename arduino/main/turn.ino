@@ -7,7 +7,7 @@
 */
 int turnVehicle(int headingChange) {
 
-  blink();
+  // blink();
   
   int cur_heading = getHeading(); //get current heading of vehicle 
   int target_heading = cur_heading + (90 - headingChange);
@@ -22,7 +22,7 @@ int turnVehicle(int headingChange) {
 
   turnWheelsRight(); //turn the steering servo to the right
 
-  delay(1000);
+  delay(100);
 
   // Gun it to get up to speed
   runMotor( min(2 * turnSpeed, 255));
@@ -44,7 +44,7 @@ int turnVehicle(int headingChange) {
     cur_heading = getHeading();
   }
   runMotor(STOP);
-  brakeFromForwards();
+  // brakeFromForwards();
   //once our current heading matches the target heading, we center the steering
   centerWheels();
 

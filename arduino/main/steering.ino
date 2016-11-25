@@ -18,7 +18,7 @@ void centerWheels () {
  * the right heading
  */
 void turnWheelsRight(){
-  steer_servo_pos = 20;
+  steer_servo_pos = 10;
   steering_servo.write(steer_servo_pos);
 }
 
