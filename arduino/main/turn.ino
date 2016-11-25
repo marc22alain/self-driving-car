@@ -35,7 +35,7 @@ int turnVehicle(int headingChange) {
 
     if (analogRead(A0) < turn_distance_threshold) {
       runMotor(STOP);
-      brakeFromForwars();
+      brakeFromForwards();
       centerWheels();
       driveBackwards(.5);
     }
@@ -44,7 +44,7 @@ int turnVehicle(int headingChange) {
     cur_heading = getHeading();
   }
   runMotor(STOP);
-  brakeFromForwars();
+  brakeFromForwards();
   //once our current heading matches the target heading, we center the steering
   centerWheels();
 

@@ -14,7 +14,7 @@ void driveBackwards(float factor) {
 
   // Set to cruising speed
   runMotor(- speed);
-  delay((int)(2000 + factor));
+  delay((int)(1000 + factor));
   runMotor(STOP); // stop motor
   brakeFromBackwards();
 
