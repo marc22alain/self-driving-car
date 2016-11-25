@@ -3,7 +3,6 @@
  * NB: the steering servo is physically range-restricted
  *     to 20 - 180 degrees
  */
-int steer_servo_pos = 0;    // variable to store the servo position
 int default_steer_servo_pos = 90;    // variable to store the servo position
 
 int rangefinder_servo_default_pos = 90;

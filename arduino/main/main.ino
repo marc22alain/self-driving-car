@@ -1,7 +1,5 @@
 #include <Servo.h>
 #include <Wire.h>
-#include <Adafruit_Sensor.h>
-//#include <Adafruit_HMC5883_U.h>
 #include <HMC5883L.h>
 
 #define steering_servo_pin 2
@@ -28,7 +26,9 @@ int distance_threshold = 45;
 int turn_distance_threshold = min(15, distance_threshold / 3);
 int speed = 150;
 int turnSpeed = 150;
-int rangefinder_servo_pos = 0;
+int currentSpeed = 0;           // stores the car's current speed
+int rangefinder_servo_pos = 0;  // stores the rangefinder servo's current position
+int steer_servo_pos = 0;        // stores the steering servo's current position
 
 void setup() {
   
@@ -53,7 +53,7 @@ void setup() {
 
 void loop() {
   // this is the initial state
-  scanForRoute();
+  driveForwards();
 
 }
 

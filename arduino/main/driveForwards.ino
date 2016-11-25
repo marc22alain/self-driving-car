@@ -1,5 +1,9 @@
 // STATE: driving forwards
 void driveForwards() {
+  // First check that the wheels are straight
+  if (steering_servo.read() != 90) {
+    assertionError();
+  }
   runMotor(speed);
   while (checkObstacle()) {
     delay(100);
