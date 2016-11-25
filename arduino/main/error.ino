@@ -10,3 +10,14 @@ void assertionError() {
   }
 }
 
+
+void blink() {
+  digitalWrite(setup_LED_pin, HIGH);
+  delay(500);  
+  digitalWrite(setup_LED_pin, LOW);
+  delay(500);  
+  digitalWrite(setup_LED_pin, HIGH);
+  delay(500);  
+  digitalWrite(setup_LED_pin, LOW);
+}
+

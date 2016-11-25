@@ -6,6 +6,8 @@
  *            - left-hand turn: 90 < target_heading <= 180
 */
 int turnVehicle(int headingChange) {
+
+  blink();
   
   int cur_heading = getHeading(); //get current heading of vehicle 
   int target_heading = cur_heading + (90 - headingChange);
@@ -20,13 +22,22 @@ int turnVehicle(int headingChange) {
 
   turnWheelsRight(); //turn the steering servo to the right
 
+  delay(1000);
+
   while(abs(cur_heading - target_heading) >= 10){
 
+    if (analogRead(A0) < turn_distance_threshold) {
+      runMotor(STOP);
+      centerWheels();
+      driveBackwards(.5);
+    }
+
     runMotor(turnSpeed);
-    delay(67);          // since the default refresh rate is 15Hz, and we haven't changed it
+    delay(15);          // since the default refresh rate is 75Hz, and we haven't changed it
     cur_heading = getHeading();
   }
   runMotor(STOP);
+  brakeFromBackwards();
   //once our current heading matches the target heading, we center the steering
   centerWheels();
 
