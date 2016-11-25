@@ -18,5 +18,6 @@ void driveBackwards(float factor) {
 void brakeFromBackwards() {
   runMotor(speed);  
   delay(100);
+  runMotor(STOP);
 }
 

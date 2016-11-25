@@ -16,5 +16,6 @@ void driveForwards() {
 void brakeFromForwards() {
   runMotor(- speed);  
   delay(100);
+  runMotor(STOP);
 }
 
