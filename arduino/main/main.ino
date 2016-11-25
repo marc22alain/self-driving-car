@@ -24,8 +24,8 @@ int Offset_z  = 343.81; // mG
 // to save continually reprogramming the Arduino
 int distance_threshold = 45;
 int turn_distance_threshold = min(15, distance_threshold / 3);
-int speed = 150;
-int turnSpeed = 150;
+int speed = 120;
+int turnSpeed = 120;
 int currentSpeed = 0;           // stores the car's current speed
 int rangefinder_servo_pos = 0;  // stores the rangefinder servo's current position
 int steer_servo_pos = 0;        // stores the steering servo's current position

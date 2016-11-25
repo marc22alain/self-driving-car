@@ -24,6 +24,13 @@ int turnVehicle(int headingChange) {
 
   delay(1000);
 
+  // Gun it to get up to speed
+  runMotor( min(2 * turnSpeed, 255));
+  delay(200);
+
+  // Set to normal turning speed
+  runMotor(turnSpeed);
+
   while(abs(cur_heading - target_heading) >= 10){
 
     if (analogRead(A0) < turn_distance_threshold) {
@@ -32,7 +39,6 @@ int turnVehicle(int headingChange) {
       driveBackwards(.5);
     }
 
-    runMotor(turnSpeed);
     delay(15);          // since the default refresh rate is 75Hz, and we haven't changed it
     cur_heading = getHeading();
   }

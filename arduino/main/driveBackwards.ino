@@ -8,10 +8,17 @@ void driveBackwards(float factor) {
   if (steering_servo.read() != 90) {
     assertionError();
   }
+  // Gun it to get up to speed
+  runMotor( - min(2 * speed, 255));
+  delay(200);
+
+  // Set to cruising speed
   runMotor(- speed);
   delay((int)(2000 + factor));
   runMotor(STOP); // stop motor
   brakeFromBackwards();
+
+  // Transition to next state
   scanForRoute();//scan for a viable route
 }
 
