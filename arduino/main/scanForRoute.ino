@@ -20,8 +20,8 @@ void scanForRoute() {
   centerRangeFinder();  
 
   /* After scanning when a target heading is found we make a turn. */
-  if (bestHeadingChange > 0) {
-    turnVehicle(bestHeadingChange);
+  if (optimum_dis > 3 * distance_threshold) {
+    turnVehicle(optimum_dis);
   }
   else{
     //if no clear route is found, the vehicle needs to back up

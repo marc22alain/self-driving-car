@@ -5,6 +5,7 @@
  * Depends on sane speed settings so that there is no collision with the obstacle.
  */
 void driveForwards() {
+  timesBackedUp = 0;
   // First check that the wheels are straight
   if (steering_servo.read() != 90) {
     assertionError();

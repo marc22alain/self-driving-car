@@ -23,6 +23,15 @@ void turnWheelsRight(){
 }
 
 /*
+ * This function is used in the turn state to make a turn the vehicle towards
+ * the right heading
+ */
+void turnWheelsLeft(){
+  steer_servo_pos = 170;
+  steering_servo.write(steer_servo_pos);
+}
+
+/*
  * This function turns the range finder servo 10 degrees to the right,
  * reading from the range finder after each turn. 
  * It returns the reading from the range finder after a turn

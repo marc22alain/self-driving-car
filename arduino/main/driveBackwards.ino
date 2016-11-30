@@ -4,6 +4,11 @@
  * For a couple of seconds, run the motor backwards (reverse direction travel)
  */
 void driveBackwards(float factor) {
+  timesBackedUp += 1;
+
+  if (timesBackedUp > 2) {
+    turnLeft();
+  }
   // First check that the wheels are straight
   if (steering_servo.read() != 90) {
     assertionError();
