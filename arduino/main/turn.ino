@@ -44,6 +44,8 @@ int turnVehicle(int optimumDistance) {
   // If the car turn ends outside of the tolerance, then stop it NOW !
   // This can occur due to momentum carrying the car through the turn
   // before the wheels have straigthened out.
+  // *** This assertion is nullified due to the unpredictability of rangefinder sensing.
+  // *** In practice, the assertion is called too often, and we have no solution.
 //  if (multiSample() < distance) {
 //    assertionError();
 //  }
@@ -52,6 +54,13 @@ int turnVehicle(int optimumDistance) {
   driveForwards();
 }
 
+
+/*
+ * Turning left is used as a strategy to get out of a situation where a right turn
+ * is not possible. I.e., scanForRoute state only finds obstacles, and must back-up.
+ * If it backs up twice and still finds an obstacle, then it calls this function to
+ * make a short left turn then transition to the driveForwards state.
+ */
 void turnLeft() {
   int currentHeading = getHeading();
   turnWheelsLeft();
@@ -65,15 +74,25 @@ void turnLeft() {
   // Set to normal turning speed
   runMotor(turnSpeed);
   while (getHeading() > currentHeading - 30) {
+
+    if (multiSample() < turn_distance_threshold) {
+      runMotor(STOP);
+      brakeFromForwards();
+      centerWheels();
+      // State transition
+      driveBackwards(.5);
+    }
+
     delay(15);
   }
   runMotor(STOP);
-  // brakeFromForwards();
+
   //once our current heading matches the target heading, we center the steering
   centerWheels();
 
   delay(100);
 
+  // State transition
   driveForwards();
 }
 
