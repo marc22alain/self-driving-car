@@ -4,11 +4,11 @@
  */
 void scanForRoute() {
   int bestHeadingChange = -1;
-  int optimum_dis = analogRead(A0);
+  int optimum_dis = multiSample();
   int sensorValue;
   do {
     delay(100);
-    sensorValue = analogRead(A0);
+    sensorValue = multiSample();
     if (sensorValue > optimum_dis && sensorValue >= distance_threshold) {
       optimum_dis = sensorValue;
       bestHeadingChange =  rangefinder_servo_pos;
@@ -20,8 +20,8 @@ void scanForRoute() {
   centerRangeFinder();  
 
   /* After scanning when a target heading is found we make a turn. */
-  if (bestHeadingChange > 0) {
-    turnVehicle(bestHeadingChange);
+  if (optimum_dis > 3 * distance_threshold) {
+    turnVehicle(optimum_dis);
   }
   else{
     //if no clear route is found, the vehicle needs to back up

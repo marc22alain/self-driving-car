@@ -3,7 +3,6 @@
  * NB: the steering servo is physically range-restricted
  *     to 20 - 180 degrees
  */
-int steer_servo_pos = 0;    // variable to store the servo position
 int default_steer_servo_pos = 90;    // variable to store the servo position
 
 int rangefinder_servo_default_pos = 90;
@@ -19,7 +18,16 @@ void centerWheels () {
  * the right heading
  */
 void turnWheelsRight(){
-  steer_servo_pos = 20;
+  steer_servo_pos = 10;
+  steering_servo.write(steer_servo_pos);
+}
+
+/*
+ * This function is used in the turn state to make a turn the vehicle towards
+ * the right heading
+ */
+void turnWheelsLeft(){
+  steer_servo_pos = 170;
   steering_servo.write(steer_servo_pos);
 }
 

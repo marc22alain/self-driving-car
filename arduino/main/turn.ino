@@ -5,53 +5,94 @@
  *            - right-hand turn: 0 <= target_heading < 90
  *            - left-hand turn: 90 < target_heading <= 180
 */
-int turnVehicle(int headingChange) {
+int turnVehicle(int optimumDistance) {
 
-  blink();
+  // blink();
   
-  int cur_heading = getHeading(); //get current heading of vehicle 
-  int target_heading = cur_heading + (90 - headingChange);
-
-  // adjust for out-of-quadrant values
-  if (target_heading >= 360) {
-    target_heading -= 360;
-  }
-  else if (target_heading < 0) {
-    target_heading += 360;
-  }
 
   turnWheelsRight(); //turn the steering servo to the right
 
-  delay(1000);
+  delay(100);
 
-  while(abs(cur_heading - target_heading) >= 10){
+  // Gun it to get up to speed
+  runMotor( min(2 * turnSpeed, 255));
+  delay(200);
 
-    if (analogRead(A0) < turn_distance_threshold) {
+  // Set to normal turning speed
+  runMotor(turnSpeed);
+
+  while(abs(multiSample() - optimumDistance) >= 50){
+
+    if (multiSample() < turn_distance_threshold) {
       runMotor(STOP);
-      brakeFromForwars();
+      brakeFromForwards();
       centerWheels();
       driveBackwards(.5);
     }
+  }
 
-    runMotor(turnSpeed);
-    delay(15);          // since the default refresh rate is 75Hz, and we haven't changed it
-    cur_heading = getHeading();
+  while(abs(multiSample() - optimumDistance) < 50){
+    // do nothing
   }
   runMotor(STOP);
-  brakeFromForwars();
+  // brakeFromForwards();
   //once our current heading matches the target heading, we center the steering
   centerWheels();
 
-  delay(180); // because the servo rotation rate is 60 degrees/.12 seconds @ 4.8V
+  delay(100); // because the servo rotation rate is 60 degrees/.12 seconds @ 4.8V
 
   // If the car turn ends outside of the tolerance, then stop it NOW !
   // This can occur due to momentum carrying the car through the turn
   // before the wheels have straigthened out.
-  if (abs(cur_heading - target_heading) > 10) {
-    assertionError();
-  }
+  // *** This assertion is nullified due to the unpredictability of rangefinder sensing.
+  // *** In practice, the assertion is called too often, and we have no solution.
+//  if (multiSample() < distance) {
+//    assertionError();
+//  }
 
   //drive forward now that the turn is complete
+  driveForwards();
+}
+
+
+/*
+ * Turning left is used as a strategy to get out of a situation where a right turn
+ * is not possible. I.e., scanForRoute state only finds obstacles, and must back-up.
+ * If it backs up twice and still finds an obstacle, then it calls this function to
+ * make a short left turn then transition to the driveForwards state.
+ */
+void turnLeft() {
+  int currentHeading = getHeading();
+  turnWheelsLeft();
+  
+  delay(100);
+
+  // Gun it to get up to speed
+  runMotor( min(2 * turnSpeed, 255));
+  delay(200);
+
+  // Set to normal turning speed
+  runMotor(turnSpeed);
+  while (getHeading() > currentHeading - 30) {
+
+    if (multiSample() < turn_distance_threshold) {
+      runMotor(STOP);
+      brakeFromForwards();
+      centerWheels();
+      // State transition
+      driveBackwards(.5);
+    }
+
+    delay(15);
+  }
+  runMotor(STOP);
+
+  //once our current heading matches the target heading, we center the steering
+  centerWheels();
+
+  delay(100);
+
+  // State transition
   driveForwards();
 }
 
