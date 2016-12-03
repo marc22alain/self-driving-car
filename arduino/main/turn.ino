@@ -6,6 +6,7 @@
  *            - left-hand turn: 90 < target_heading <= 180
 */
 int turnVehicle(int optimumDistance) {
+  Serial.println("TURN RIGHT");
 
   // blink();
   
@@ -22,6 +23,7 @@ int turnVehicle(int optimumDistance) {
   runMotor(turnSpeed);
 
   while(abs(multiSample() - optimumDistance) >= 50){
+    Serial.println("STARTING TURN");
 
     if (multiSample() < turn_distance_threshold) {
       runMotor(STOP);
@@ -33,9 +35,11 @@ int turnVehicle(int optimumDistance) {
 
   while(abs(multiSample() - optimumDistance) < 50){
     // do nothing
+  Serial.println("FINISHING TURN");
   }
   runMotor(STOP);
-  // brakeFromForwards();
+  // We do this to have a more predictable acceleration.
+  brakeFromForwards();
   //once our current heading matches the target heading, we center the steering
   centerWheels();
 
@@ -62,6 +66,8 @@ int turnVehicle(int optimumDistance) {
  * make a short left turn then transition to the driveForwards state.
  */
 void turnLeft() {
+  Serial.println("TURN LEFT");
+  timesBackedUp = 0;
   int currentHeading = getHeading();
   turnWheelsLeft();
   

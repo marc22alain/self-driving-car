@@ -3,6 +3,7 @@
  * Requires: - rangefinder_servo_pos must decrement to 0
  */
 void scanForRoute() {
+  Serial.println("SCAN FOR ROUTE");
   int bestHeadingChange = -1;
   int optimum_dis = multiSample();
   int sensorValue;

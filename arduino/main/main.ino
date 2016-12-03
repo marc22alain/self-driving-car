@@ -43,7 +43,8 @@ void setup() {
   compass = HMC5883L();
   compass.SetMeasurementMode(Measurement_Continuous);
   compass.SetMeasurementRate(Hz75);
-  
+
+  Serial.begin(9600);
   // turn on the setup indicator LED
   // and wait 10 seconds to set up the car
   pinMode(setup_LED_pin, OUTPUT);

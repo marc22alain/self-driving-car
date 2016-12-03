@@ -4,6 +4,7 @@
  * For a couple of seconds, run the motor backwards (reverse direction travel)
  */
 void driveBackwards(float factor) {
+  Serial.println("DRIVE BACKWARDS");
   timesBackedUp += 1;
 
   if (timesBackedUp > 2) {
