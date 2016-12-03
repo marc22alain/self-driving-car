@@ -11,3 +11,14 @@ range finder			A0
 
 motor driver forward - PWM	11
 motor driver backward - PWM	3
+
+
+
+timers:		functions:		pins served:
+____________________________________________________
+
+timer0		delay(), millis()	any
+
+timer1		Servo			any
+
+timer2		8-bit PWM		3, 11
