@@ -5,7 +5,7 @@
  *            - right-hand turn: 0 <= target_heading < 90
  *            - left-hand turn: 90 < target_heading <= 180
 */
-int turnVehicle(int optimumDistance) {
+int turnRight(int optimumDistance) {
   Serial.println("TURN RIGHT");
 
   // blink();

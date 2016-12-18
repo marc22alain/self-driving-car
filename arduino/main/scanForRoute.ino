@@ -22,11 +22,16 @@ void scanForRoute() {
 
   /* After scanning when a target heading is found we make a turn. */
   if (optimum_dis > 3 * distance_threshold) {
-    turnVehicle(optimum_dis);
+    turnRight(optimum_dis);
   }
   else{
     //if no clear route is found, the vehicle needs to back up
-    driveBackwards(1);
+    if (timesBackedUp == 2) {
+      turnLeft();
+    }
+    else {
+      driveBackwards(1);    
+    }
   }
 }
 

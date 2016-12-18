@@ -7,9 +7,6 @@ void driveBackwards(float factor) {
   Serial.println("DRIVE BACKWARDS");
   timesBackedUp += 1;
 
-  if (timesBackedUp > 2) {
-    turnLeft();
-  }
   // First check that the wheels are straight
   if (steering_servo.read() != 90) {
     assertionError();
