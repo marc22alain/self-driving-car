@@ -15,3 +15,4 @@ The microcontroller is an ATMega 328P (Arduino UNO). The additional devices are:
 - magnetometer HMC5883L
 - two servos Fitec FS90; one for steering, the other to orient the rangefinder
 - one H-bridge motor driver L9110
+![image of block diagram](arduino/self_driving_fritz_bb.png)
